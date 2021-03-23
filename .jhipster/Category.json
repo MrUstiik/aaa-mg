@@ -1,0 +1,71 @@
+{
+  "name": "Category",
+  "fields": [
+    {
+      "fieldName": "uuid",
+      "fieldType": "UUID",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "enabled",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "parentCategoryId",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "mcc",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMinlength": "4",
+      "fieldValidateRulesMaxlength": "4"
+    },
+    {
+      "fieldName": "iconUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "defaultOrderId",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "regions",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tags",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "addedDate",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20210323223402",
+  "javadoc": "Payment transaction category.",
+  "entityTableName": "category",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "ActionCatalogService",
+  "applications": ["ActionCatalogService"],
+  "microserviceName": "ActionCatalogService"
+}

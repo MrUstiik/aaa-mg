@@ -1,0 +1,85 @@
+{
+  "name": "CategoryAction",
+  "fields": [
+    {
+      "fieldName": "uuid",
+      "fieldType": "UUID",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "actionType",
+      "fieldType": "ActionType",
+      "fieldValues": "BILLPAY"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "enabled",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "categoryId",
+      "fieldType": "UUID",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "mcc",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMinlength": "4",
+      "fieldValidateRulesMaxlength": "4"
+    },
+    {
+      "fieldName": "defaultOrderId",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "iconUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "regions",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tags",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "source",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "processId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "addedDate",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20210323223502",
+  "javadoc": "Payment transaction action.",
+  "entityTableName": "category_action",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "ActionCatalogService",
+  "applications": ["ActionCatalogService"],
+  "microserviceName": "ActionCatalogService"
+}

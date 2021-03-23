@@ -5,7 +5,7 @@
     "baseName": "ActionCatalogService",
     "packageName": "com.ftr.dgb.payments.action.catalog",
     "packageFolder": "com/ftr/dgb/payments/action/catalog",
-    "serverPort": 8089,
+    "serverPort": "8089",
     "serviceDiscoveryType": false,
     "authenticationType": "jwt",
     "uaaBaseName": "../uaa",
@@ -24,7 +24,7 @@
     "testFrameworks": [],
     "enableTranslation": true,
     "nativeLanguage": "en",
-    "languages": ["ru", "ua", "en"],
+    "languages": ["ua", "en", "ru"],
     "clientFramework": "angularX",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "6.10.5",
@@ -32,14 +32,16 @@
     "embeddableLaunchScript": false,
     "creationTimestamp": 1616538587356,
     "entitySuffix": "",
-    "dtoSuffix": "DTO",
+    "dtoSuffix": "Dto",
     "otherModules": [],
     "blueprints": [],
     "skipClient": true,
     "skipUserManagement": true,
-    "prettierJava": true
+    "prettierJava": true,
+    "reactive": true
   },
   "git-provider": "GitHub",
   "git-company": "MrUstiik",
-  "repository-name": "aaa-mg"
+  "repository-name": "aaa-mg",
+  "entities": ["Category", "CategoryAction"]
 }
