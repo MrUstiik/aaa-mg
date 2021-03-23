@@ -18,11 +18,11 @@ import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
 import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
-@EnableMongoRepositories("com.ftr.dgb.payments.action.catalog.repository")
+@EnableReactiveMongoRepositories("com.ftr.dgb.payments.action.catalog.repository")
 @Profile(JHipsterConstants.SPRING_PROFILE_CLOUD)
 public class CloudDatabaseConfiguration extends AbstractCloudConfig {
     private final Logger log = LoggerFactory.getLogger(CloudDatabaseConfiguration.class);
