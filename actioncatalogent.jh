@@ -1,0 +1,46 @@
+ /** Payment transaction category.*/
+ //@filter
+entity Category {
+  uuid UUID required unique
+  name String required
+  enabled Boolean required
+  parentCategoryId UUID
+  mcc String minlength(4) maxlength(4)
+  iconUrl String
+  defaultOrderId Integer
+  regions String
+  tags String
+  addedDate ZonedDateTime required
+  updatedDate ZonedDateTime required
+}
+
+/** Pyament action type. */
+enum ActionType {
+  BILLPAY
+}
+
+/** Payment transaction action.*/
+//@filter
+entity CategoryAction {
+  uuid UUID required unique
+  actionType ActionType
+  name String required
+  enabled Boolean required
+  categoryId UUID required
+  mcc String minlength(4) maxlength(4)
+  defaultOrderId Integer
+  iconUrl String  
+  regions String
+  tags String
+  source String
+  processId String
+  addedDate ZonedDateTime required
+  updatedDate ZonedDateTime required
+}
+
+//relationship ManyToOne {
+//  CategoryAction{category(categoryId) required} to Category//{action(uuid)}
+//}
+
+dto all with mapstruct
+service all with serviceImpl
