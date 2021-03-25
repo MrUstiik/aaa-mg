@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface CategoryActionRepository extends ReactiveMongoRepository<CategoryAction, String> {}
+public interface CategoryActionRepository extends ReactiveMongoRepository<CategoryAction, String> {
+
+
+}

@@ -1,19 +1,22 @@
 package com.ftr.dgb.payments.action.catalog.domain;
 
-import com.ftr.dgb.payments.action.catalog.domain.enumeration.ActionType;
-import java.io.Serializable;
-import java.time.ZonedDateTime;
-import java.util.UUID;
-import javax.validation.constraints.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import javax.validation.constraints.*;
+
+import java.io.Serializable;
+import java.time.ZonedDateTime;
+import java.util.UUID;
+
+import com.ftr.dgb.payments.action.catalog.domain.enumeration.ActionType;
 
 /**
  * Payment transaction action.
  */
 @Document(collection = "category_action")
 public class CategoryAction implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -38,7 +41,6 @@ public class CategoryAction implements Serializable {
     @Field("category_id")
     private UUID categoryId;
 
-    @Size(min = 4, max = 4)
     @Field("mcc")
     private String mcc;
 
@@ -258,7 +260,6 @@ public class CategoryAction implements Serializable {
     public void setUpdatedDate(ZonedDateTime updatedDate) {
         this.updatedDate = updatedDate;
     }
-
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

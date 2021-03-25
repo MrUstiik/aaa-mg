@@ -4,7 +4,10 @@
     {
       "fieldName": "uuid",
       "fieldType": "UUID",
-      "fieldValidateRules": ["required", "unique"]
+      "fieldValidateRules": [
+        "required",
+        "unique"
+      ]
     },
     {
       "fieldName": "actionType",
@@ -14,24 +17,27 @@
     {
       "fieldName": "name",
       "fieldType": "String",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "enabled",
       "fieldType": "Boolean",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "categoryId",
       "fieldType": "UUID",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "mcc",
-      "fieldType": "String",
-      "fieldValidateRules": ["minlength", "maxlength"],
-      "fieldValidateRulesMinlength": "4",
-      "fieldValidateRulesMaxlength": "4"
+      "fieldType": "String"
     },
     {
       "fieldName": "defaultOrderId",
@@ -60,12 +66,16 @@
     {
       "fieldName": "addedDate",
       "fieldType": "ZonedDateTime",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "updatedDate",
       "fieldType": "ZonedDateTime",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     }
   ],
   "relationships": [],
@@ -75,11 +85,11 @@
   "dto": "mapstruct",
   "pagination": "no",
   "service": "serviceImpl",
-  "jpaMetamodelFiltering": false,
+  "jpaMetamodelFiltering": true,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "ActionCatalogService",
-  "applications": ["ActionCatalogService"],
+  "applications": "*",
   "microserviceName": "ActionCatalogService"
 }

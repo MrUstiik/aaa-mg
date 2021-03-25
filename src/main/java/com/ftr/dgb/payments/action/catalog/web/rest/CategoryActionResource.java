@@ -1,15 +1,11 @@
 package com.ftr.dgb.payments.action.catalog.web.rest;
 
 import com.ftr.dgb.payments.action.catalog.service.CategoryActionService;
-import com.ftr.dgb.payments.action.catalog.service.dto.CategoryActionDto;
 import com.ftr.dgb.payments.action.catalog.web.rest.errors.BadRequestAlertException;
+import com.ftr.dgb.payments.action.catalog.service.dto.CategoryActionDto;
+
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.reactive.ResponseUtil;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
-import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,12 +17,19 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import javax.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
 /**
  * REST controller for managing {@link com.ftr.dgb.payments.action.catalog.domain.CategoryAction}.
  */
 @RestController
 @RequestMapping("/api")
 public class CategoryActionResource {
+
     private final Logger log = LoggerFactory.getLogger(CategoryActionResource.class);
 
     private static final String ENTITY_NAME = "actionCatalogServiceCategoryAction";
@@ -48,26 +51,21 @@ public class CategoryActionResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/category-actions")
-    public Mono<ResponseEntity<CategoryActionDto>> createCategoryAction(@Valid @RequestBody CategoryActionDto categoryActionDto)
-        throws URISyntaxException {
+    public Mono<ResponseEntity<CategoryActionDto>> createCategoryAction(@Valid @RequestBody CategoryActionDto categoryActionDto) throws URISyntaxException {
         log.debug("REST request to save CategoryAction : {}", categoryActionDto);
         if (categoryActionDto.getId() != null) {
             throw new BadRequestAlertException("A new categoryAction cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        return categoryActionService
-            .save(categoryActionDto)
-            .map(
-                result -> {
-                    try {
-                        return ResponseEntity
-                            .created(new URI("/api/category-actions/" + result.getId()))
-                            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId()))
-                            .body(result);
-                    } catch (URISyntaxException e) {
-                        throw new RuntimeException(e);
-                    }
+        return categoryActionService.save(categoryActionDto)
+            .map(result -> {
+                try {
+                    return ResponseEntity.created(new URI("/api/category-actions/" + result.getId()))
+                        .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId()))
+                        .body(result);
+                } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
                 }
-            );
+            });
     }
 
     /**
@@ -80,21 +78,16 @@ public class CategoryActionResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/category-actions")
-    public Mono<ResponseEntity<CategoryActionDto>> updateCategoryAction(@Valid @RequestBody CategoryActionDto categoryActionDto)
-        throws URISyntaxException {
+    public Mono<ResponseEntity<CategoryActionDto>> updateCategoryAction(@Valid @RequestBody CategoryActionDto categoryActionDto) throws URISyntaxException {
         log.debug("REST request to update CategoryAction : {}", categoryActionDto);
         if (categoryActionDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        return categoryActionService
-            .save(categoryActionDto)
+        return categoryActionService.save(categoryActionDto)
             .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
-            .map(
-                result ->
-                    ResponseEntity
-                        .ok()
-                        .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getId()))
-                        .body(result)
+            .map(result -> ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getId()))
+                .body(result)
             );
     }
 
@@ -142,11 +135,8 @@ public class CategoryActionResource {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public Mono<ResponseEntity<Void>> deleteCategoryAction(@PathVariable String id) {
         log.debug("REST request to delete CategoryAction : {}", id);
-        return categoryActionService
-            .delete(id)
-            .map(
-                result ->
-                    ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id)).build()
-            );
+        return categoryActionService.delete(id)            .map(result -> ResponseEntity.noContent()
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id)).build()
+        );
     }
 }

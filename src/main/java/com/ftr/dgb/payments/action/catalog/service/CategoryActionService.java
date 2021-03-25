@@ -1,14 +1,16 @@
 package com.ftr.dgb.payments.action.catalog.service;
 
 import com.ftr.dgb.payments.action.catalog.service.dto.CategoryActionDto;
-import java.util.List;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 /**
  * Service Interface for managing {@link com.ftr.dgb.payments.action.catalog.domain.CategoryAction}.
  */
 public interface CategoryActionService {
+
     /**
      * Save a categoryAction.
      *
@@ -25,10 +27,11 @@ public interface CategoryActionService {
     Flux<CategoryActionDto> findAll();
 
     /**
-     * Returns the number of categoryActions available.
-     *
-     */
+    * Returns the number of categoryActions available.
+    *
+    */
     Mono<Long> countAll();
+
 
     /**
      * Get the "id" categoryAction.

@@ -1,11 +1,11 @@
 package com.ftr.dgb.payments.action.catalog.service.mapper;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CategoryMapperTest {
+
     private CategoryMapper categoryMapper;
 
     @BeforeEach

@@ -1,16 +1,17 @@
 package com.ftr.dgb.payments.action.catalog.service.dto;
 
 import io.swagger.annotations.ApiModel;
-import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.UUID;
 import javax.validation.constraints.*;
+import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * A DTO for the {@link com.ftr.dgb.payments.action.catalog.domain.Category} entity.
  */
 @ApiModel(description = "Payment transaction category.")
 public class CategoryDto implements Serializable {
+    
     private String id;
 
     @NotNull
@@ -24,7 +25,6 @@ public class CategoryDto implements Serializable {
 
     private UUID parentCategoryId;
 
-    @Size(min = 4, max = 4)
     private String mcc;
 
     private String iconUrl;
@@ -41,6 +41,7 @@ public class CategoryDto implements Serializable {
     @NotNull
     private ZonedDateTime updatedDate;
 
+    
     public String getId() {
         return id;
     }

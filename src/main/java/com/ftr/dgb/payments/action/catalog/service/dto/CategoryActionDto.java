@@ -1,17 +1,18 @@
 package com.ftr.dgb.payments.action.catalog.service.dto;
 
-import com.ftr.dgb.payments.action.catalog.domain.enumeration.ActionType;
 import io.swagger.annotations.ApiModel;
-import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.UUID;
 import javax.validation.constraints.*;
+import java.io.Serializable;
+import java.util.UUID;
+import com.ftr.dgb.payments.action.catalog.domain.enumeration.ActionType;
 
 /**
  * A DTO for the {@link com.ftr.dgb.payments.action.catalog.domain.CategoryAction} entity.
  */
 @ApiModel(description = "Payment transaction action.")
 public class CategoryActionDto implements Serializable {
+    
     private String id;
 
     @NotNull
@@ -28,7 +29,6 @@ public class CategoryActionDto implements Serializable {
     @NotNull
     private UUID categoryId;
 
-    @Size(min = 4, max = 4)
     private String mcc;
 
     private Integer defaultOrderId;
@@ -49,6 +49,7 @@ public class CategoryActionDto implements Serializable {
     @NotNull
     private ZonedDateTime updatedDate;
 
+    
     public String getId() {
         return id;
     }
