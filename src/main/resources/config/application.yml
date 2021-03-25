@@ -80,7 +80,7 @@ management:
 
 spring:
   application:
-    name: ActionCatalogService
+    name: ActionCatalogServiceSQL
   profiles:
     # The commented value for `active` can be replaced with valid Spring profiles to load.
     # Otherwise, it will be filled in by gradle when building the JAR file
@@ -94,13 +94,13 @@ spring:
     allow-bean-definition-overriding: true
   task:
     execution:
-      thread-name-prefix: action-catalog-service-task-
+      thread-name-prefix: action-catalog-service-sql-task-
       pool:
         core-size: 2
         max-size: 50
         queue-capacity: 10000
     scheduling:
-      thread-name-prefix: action-catalog-service-scheduling-
+      thread-name-prefix: action-catalog-service-sql-scheduling-
       pool:
         size: 2
   thymeleaf:
@@ -128,7 +128,7 @@ info:
 
 jhipster:
   clientApp:
-    name: 'actionCatalogServiceApp'
+    name: 'actionCatalogServiceSqlApp'
   # By default CORS is disabled. Uncomment to enable.
   # cors:
   #     allowed-origins: "*"
@@ -138,11 +138,11 @@ jhipster:
   #     allow-credentials: true
   #     max-age: 1800
   mail:
-    from: ActionCatalogService@localhost
+    from: ActionCatalogServiceSQL@localhost
   swagger:
     default-include-pattern: /api/.*
-    title: ActionCatalogService API
-    description: ActionCatalogService API documentation
+    title: ActionCatalogServiceSQL API
+    description: ActionCatalogServiceSQL API documentation
     version: 0.0.1
     terms-of-service-url:
     contact-name:

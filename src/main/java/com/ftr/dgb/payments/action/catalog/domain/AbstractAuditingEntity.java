@@ -3,9 +3,9 @@ package com.ftr.dgb.payments.action.catalog.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.time.Instant;
+import javax.persistence.Column;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
  * Base abstract class for entities which will hold definitions for created, last modified, created by,
@@ -14,21 +14,21 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public abstract class AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Field("created_by")
+    @Column(name = "created_by", nullable = false, length = 50, updatable = false)
     @JsonIgnore
     private String createdBy;
 
     @CreatedDate
-    @Field("created_date")
+    @Column(name = "created_date", updatable = false)
     @JsonIgnore
     private Instant createdDate = Instant.now();
 
-    @Field("last_modified_by")
+    @Column(name = "last_modified_by", length = 50)
     @JsonIgnore
     private String lastModifiedBy;
 
     @LastModifiedDate
-    @Field("last_modified_date")
+    @Column(name = "last_modified_date")
     @JsonIgnore
     private Instant lastModifiedDate = Instant.now();
 
