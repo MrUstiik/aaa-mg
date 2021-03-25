@@ -1,0 +1,35 @@
+application {
+  config {
+    baseName ActionCatalogServiceSQL
+    applicationType microservice
+    serverPort 8089
+    packageName com.ftr.dgb.payments.action.catalog
+    buildTool gradle
+    reactive true
+    
+    authenticationType jwt
+    databaseType sql
+    prodDatabaseType postgresql
+    devDatabaseType postgresql
+    enableHibernateCache false
+    cacheProvider no
+    serviceDiscoveryType no
+
+    dtoSuffix Dto
+    enableSwaggerCodegen true
+    
+    nativeLanguage en
+    languages [ua, en, ru]
+    enableTranslation true
+  }
+  
+  entities *
+}
+
+// deployment {
+//   deploymentType kubernetes
+//   kubernetesNamespace services
+//   kubernetesServiceType ingress
+//   serviceDiscoveryType no
+//   dockerRepositoryName "myNameIs"
+// }
