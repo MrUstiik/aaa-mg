@@ -1,9 +1,8 @@
 package com.ftr.dgb.payments.action.catalog.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import com.ftr.dgb.payments.action.catalog.web.rest.TestUtil;
 import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import com.ftr.dgb.payments.action.catalog.web.rest.TestUtil;
 
 public class CategoryActionTest {
 

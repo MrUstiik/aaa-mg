@@ -1,24 +1,12 @@
 package com.ftr.dgb.payments.action.catalog.web.rest;
 
-import static com.ftr.dgb.payments.action.catalog.web.rest.TestUtil.sameInstant;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.is;
-
 import com.ftr.dgb.payments.action.catalog.ActionCatalogServiceApp;
 import com.ftr.dgb.payments.action.catalog.domain.CategoryAction;
-import com.ftr.dgb.payments.action.catalog.domain.enumeration.ActionType;
 import com.ftr.dgb.payments.action.catalog.repository.CategoryActionRepository;
 import com.ftr.dgb.payments.action.catalog.service.CategoryActionService;
 import com.ftr.dgb.payments.action.catalog.service.dto.CategoryActionDto;
 import com.ftr.dgb.payments.action.catalog.service.mapper.CategoryActionMapper;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.UUID;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +16,20 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
+import java.time.ZoneId;
+import java.util.List;
+import java.util.UUID;
+
+import static com.ftr.dgb.payments.action.catalog.web.rest.TestUtil.sameInstant;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.is;
+
+import com.ftr.dgb.payments.action.catalog.domain.enumeration.ActionType;
 /**
  * Integration tests for the {@link CategoryActionResource} REST controller.
  */
@@ -35,6 +37,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @AutoConfigureWebTestClient
 @WithMockUser
 public class CategoryActionResourceIT {
+
     private static final UUID DEFAULT_UUID = UUID.randomUUID();
     private static final UUID UPDATED_UUID = UUID.randomUUID();
 
@@ -50,8 +53,8 @@ public class CategoryActionResourceIT {
     private static final UUID DEFAULT_CATEGORY_ID = UUID.randomUUID();
     private static final UUID UPDATED_CATEGORY_ID = UUID.randomUUID();
 
-    private static final String DEFAULT_MCC = "AAAA";
-    private static final String UPDATED_MCC = "BBBB";
+    private static final String DEFAULT_MCC = "AAAAAAAAAA";
+    private static final String UPDATED_MCC = "BBBBBBBBBB";
 
     private static final Integer DEFAULT_DEFAULT_ORDER_ID = 1;
     private static final Integer UPDATED_DEFAULT_ORDER_ID = 2;
@@ -115,7 +118,6 @@ public class CategoryActionResourceIT {
             .updatedDate(DEFAULT_UPDATED_DATE);
         return categoryAction;
     }
-
     /**
      * Create an updated entity for this test.
      *
@@ -152,14 +154,11 @@ public class CategoryActionResourceIT {
         int databaseSizeBeforeCreate = categoryActionRepository.findAll().collectList().block().size();
         // Create the CategoryAction
         CategoryActionDto categoryActionDto = categoryActionMapper.toDto(categoryAction);
-        webTestClient
-            .post()
-            .uri("/api/category-actions")
+        webTestClient.post().uri("/api/category-actions")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryActionDto))
             .exchange()
-            .expectStatus()
-            .isCreated();
+            .expectStatus().isCreated();
 
         // Validate the CategoryAction in the database
         List<CategoryAction> categoryActionList = categoryActionRepository.findAll().collectList().block();
@@ -190,19 +189,17 @@ public class CategoryActionResourceIT {
         CategoryActionDto categoryActionDto = categoryActionMapper.toDto(categoryAction);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        webTestClient
-            .post()
-            .uri("/api/category-actions")
+        webTestClient.post().uri("/api/category-actions")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryActionDto))
             .exchange()
-            .expectStatus()
-            .isBadRequest();
+            .expectStatus().isBadRequest();
 
         // Validate the CategoryAction in the database
         List<CategoryAction> categoryActionList = categoryActionRepository.findAll().collectList().block();
         assertThat(categoryActionList).hasSize(databaseSizeBeforeCreate);
     }
+
 
     @Test
     public void checkUuidIsRequired() throws Exception {
@@ -213,14 +210,12 @@ public class CategoryActionResourceIT {
         // Create the CategoryAction, which fails.
         CategoryActionDto categoryActionDto = categoryActionMapper.toDto(categoryAction);
 
-        webTestClient
-            .post()
-            .uri("/api/category-actions")
+
+        webTestClient.post().uri("/api/category-actions")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryActionDto))
             .exchange()
-            .expectStatus()
-            .isBadRequest();
+            .expectStatus().isBadRequest();
 
         List<CategoryAction> categoryActionList = categoryActionRepository.findAll().collectList().block();
         assertThat(categoryActionList).hasSize(databaseSizeBeforeTest);
@@ -235,14 +230,12 @@ public class CategoryActionResourceIT {
         // Create the CategoryAction, which fails.
         CategoryActionDto categoryActionDto = categoryActionMapper.toDto(categoryAction);
 
-        webTestClient
-            .post()
-            .uri("/api/category-actions")
+
+        webTestClient.post().uri("/api/category-actions")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryActionDto))
             .exchange()
-            .expectStatus()
-            .isBadRequest();
+            .expectStatus().isBadRequest();
 
         List<CategoryAction> categoryActionList = categoryActionRepository.findAll().collectList().block();
         assertThat(categoryActionList).hasSize(databaseSizeBeforeTest);
@@ -257,14 +250,12 @@ public class CategoryActionResourceIT {
         // Create the CategoryAction, which fails.
         CategoryActionDto categoryActionDto = categoryActionMapper.toDto(categoryAction);
 
-        webTestClient
-            .post()
-            .uri("/api/category-actions")
+
+        webTestClient.post().uri("/api/category-actions")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryActionDto))
             .exchange()
-            .expectStatus()
-            .isBadRequest();
+            .expectStatus().isBadRequest();
 
         List<CategoryAction> categoryActionList = categoryActionRepository.findAll().collectList().block();
         assertThat(categoryActionList).hasSize(databaseSizeBeforeTest);
@@ -279,14 +270,12 @@ public class CategoryActionResourceIT {
         // Create the CategoryAction, which fails.
         CategoryActionDto categoryActionDto = categoryActionMapper.toDto(categoryAction);
 
-        webTestClient
-            .post()
-            .uri("/api/category-actions")
+
+        webTestClient.post().uri("/api/category-actions")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryActionDto))
             .exchange()
-            .expectStatus()
-            .isBadRequest();
+            .expectStatus().isBadRequest();
 
         List<CategoryAction> categoryActionList = categoryActionRepository.findAll().collectList().block();
         assertThat(categoryActionList).hasSize(databaseSizeBeforeTest);
@@ -301,14 +290,12 @@ public class CategoryActionResourceIT {
         // Create the CategoryAction, which fails.
         CategoryActionDto categoryActionDto = categoryActionMapper.toDto(categoryAction);
 
-        webTestClient
-            .post()
-            .uri("/api/category-actions")
+
+        webTestClient.post().uri("/api/category-actions")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryActionDto))
             .exchange()
-            .expectStatus()
-            .isBadRequest();
+            .expectStatus().isBadRequest();
 
         List<CategoryAction> categoryActionList = categoryActionRepository.findAll().collectList().block();
         assertThat(categoryActionList).hasSize(databaseSizeBeforeTest);
@@ -323,14 +310,12 @@ public class CategoryActionResourceIT {
         // Create the CategoryAction, which fails.
         CategoryActionDto categoryActionDto = categoryActionMapper.toDto(categoryAction);
 
-        webTestClient
-            .post()
-            .uri("/api/category-actions")
+
+        webTestClient.post().uri("/api/category-actions")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryActionDto))
             .exchange()
-            .expectStatus()
-            .isBadRequest();
+            .expectStatus().isBadRequest();
 
         List<CategoryAction> categoryActionList = categoryActionRepository.findAll().collectList().block();
         assertThat(categoryActionList).hasSize(databaseSizeBeforeTest);
@@ -341,15 +326,11 @@ public class CategoryActionResourceIT {
         // Initialize the database
         categoryActionRepository.save(categoryAction).block();
 
-        List<CategoryAction> categoryActionList = webTestClient
-            .get()
-            .uri("/api/category-actions")
+        List<CategoryAction> categoryActionList = webTestClient.get().uri("/api/category-actions")
             .accept(MediaType.APPLICATION_STREAM_JSON)
             .exchange()
-            .expectStatus()
-            .isOk()
-            .expectHeader()
-            .contentTypeCompatibleWith(MediaType.APPLICATION_STREAM_JSON)
+            .expectStatus().isOk()
+            .expectHeader().contentTypeCompatibleWith(MediaType.APPLICATION_STREAM_JSON)
             .returnResult(CategoryActionDto.class)
             .getResponseBody()
             .map(categoryActionMapper::toEntity)
@@ -382,106 +363,64 @@ public class CategoryActionResourceIT {
         categoryActionRepository.save(categoryAction).block();
 
         // Get all the categoryActionList
-        webTestClient
-            .get()
-            .uri("/api/category-actions?sort=id,desc")
+        webTestClient.get().uri("/api/category-actions?sort=id,desc")
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
-            .expectStatus()
-            .isOk()
-            .expectHeader()
-            .contentType(MediaType.APPLICATION_JSON)
+            .expectStatus().isOk()
+            .expectHeader().contentType(MediaType.APPLICATION_JSON)
             .expectBody()
-            .jsonPath("$.[*].id")
-            .value(hasItem(categoryAction.getId()))
-            .jsonPath("$.[*].uuid")
-            .value(hasItem(DEFAULT_UUID.toString()))
-            .jsonPath("$.[*].actionType")
-            .value(hasItem(DEFAULT_ACTION_TYPE.toString()))
-            .jsonPath("$.[*].name")
-            .value(hasItem(DEFAULT_NAME))
-            .jsonPath("$.[*].enabled")
-            .value(hasItem(DEFAULT_ENABLED.booleanValue()))
-            .jsonPath("$.[*].categoryId")
-            .value(hasItem(DEFAULT_CATEGORY_ID.toString()))
-            .jsonPath("$.[*].mcc")
-            .value(hasItem(DEFAULT_MCC))
-            .jsonPath("$.[*].defaultOrderId")
-            .value(hasItem(DEFAULT_DEFAULT_ORDER_ID))
-            .jsonPath("$.[*].iconUrl")
-            .value(hasItem(DEFAULT_ICON_URL))
-            .jsonPath("$.[*].regions")
-            .value(hasItem(DEFAULT_REGIONS))
-            .jsonPath("$.[*].tags")
-            .value(hasItem(DEFAULT_TAGS))
-            .jsonPath("$.[*].source")
-            .value(hasItem(DEFAULT_SOURCE))
-            .jsonPath("$.[*].processId")
-            .value(hasItem(DEFAULT_PROCESS_ID))
-            .jsonPath("$.[*].addedDate")
-            .value(hasItem(sameInstant(DEFAULT_ADDED_DATE)))
-            .jsonPath("$.[*].updatedDate")
-            .value(hasItem(sameInstant(DEFAULT_UPDATED_DATE)));
+            .jsonPath("$.[*].id").value(hasItem(categoryAction.getId()))
+            .jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID.toString()))
+            .jsonPath("$.[*].actionType").value(hasItem(DEFAULT_ACTION_TYPE.toString()))
+            .jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME))
+            .jsonPath("$.[*].enabled").value(hasItem(DEFAULT_ENABLED.booleanValue()))
+            .jsonPath("$.[*].categoryId").value(hasItem(DEFAULT_CATEGORY_ID.toString()))
+            .jsonPath("$.[*].mcc").value(hasItem(DEFAULT_MCC))
+            .jsonPath("$.[*].defaultOrderId").value(hasItem(DEFAULT_DEFAULT_ORDER_ID))
+            .jsonPath("$.[*].iconUrl").value(hasItem(DEFAULT_ICON_URL))
+            .jsonPath("$.[*].regions").value(hasItem(DEFAULT_REGIONS))
+            .jsonPath("$.[*].tags").value(hasItem(DEFAULT_TAGS))
+            .jsonPath("$.[*].source").value(hasItem(DEFAULT_SOURCE))
+            .jsonPath("$.[*].processId").value(hasItem(DEFAULT_PROCESS_ID))
+            .jsonPath("$.[*].addedDate").value(hasItem(sameInstant(DEFAULT_ADDED_DATE)))
+            .jsonPath("$.[*].updatedDate").value(hasItem(sameInstant(DEFAULT_UPDATED_DATE)));
     }
-
+    
     @Test
     public void getCategoryAction() {
         // Initialize the database
         categoryActionRepository.save(categoryAction).block();
 
         // Get the categoryAction
-        webTestClient
-            .get()
-            .uri("/api/category-actions/{id}", categoryAction.getId())
+        webTestClient.get().uri("/api/category-actions/{id}", categoryAction.getId())
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
-            .expectStatus()
-            .isOk()
-            .expectHeader()
-            .contentType(MediaType.APPLICATION_JSON)
+            .expectStatus().isOk()
+            .expectHeader().contentType(MediaType.APPLICATION_JSON)
             .expectBody()
-            .jsonPath("$.id")
-            .value(is(categoryAction.getId()))
-            .jsonPath("$.uuid")
-            .value(is(DEFAULT_UUID.toString()))
-            .jsonPath("$.actionType")
-            .value(is(DEFAULT_ACTION_TYPE.toString()))
-            .jsonPath("$.name")
-            .value(is(DEFAULT_NAME))
-            .jsonPath("$.enabled")
-            .value(is(DEFAULT_ENABLED.booleanValue()))
-            .jsonPath("$.categoryId")
-            .value(is(DEFAULT_CATEGORY_ID.toString()))
-            .jsonPath("$.mcc")
-            .value(is(DEFAULT_MCC))
-            .jsonPath("$.defaultOrderId")
-            .value(is(DEFAULT_DEFAULT_ORDER_ID))
-            .jsonPath("$.iconUrl")
-            .value(is(DEFAULT_ICON_URL))
-            .jsonPath("$.regions")
-            .value(is(DEFAULT_REGIONS))
-            .jsonPath("$.tags")
-            .value(is(DEFAULT_TAGS))
-            .jsonPath("$.source")
-            .value(is(DEFAULT_SOURCE))
-            .jsonPath("$.processId")
-            .value(is(DEFAULT_PROCESS_ID))
-            .jsonPath("$.addedDate")
-            .value(is(sameInstant(DEFAULT_ADDED_DATE)))
-            .jsonPath("$.updatedDate")
-            .value(is(sameInstant(DEFAULT_UPDATED_DATE)));
+            .jsonPath("$.id").value(is(categoryAction.getId()))
+            .jsonPath("$.uuid").value(is(DEFAULT_UUID.toString()))
+            .jsonPath("$.actionType").value(is(DEFAULT_ACTION_TYPE.toString()))
+            .jsonPath("$.name").value(is(DEFAULT_NAME))
+            .jsonPath("$.enabled").value(is(DEFAULT_ENABLED.booleanValue()))
+            .jsonPath("$.categoryId").value(is(DEFAULT_CATEGORY_ID.toString()))
+            .jsonPath("$.mcc").value(is(DEFAULT_MCC))
+            .jsonPath("$.defaultOrderId").value(is(DEFAULT_DEFAULT_ORDER_ID))
+            .jsonPath("$.iconUrl").value(is(DEFAULT_ICON_URL))
+            .jsonPath("$.regions").value(is(DEFAULT_REGIONS))
+            .jsonPath("$.tags").value(is(DEFAULT_TAGS))
+            .jsonPath("$.source").value(is(DEFAULT_SOURCE))
+            .jsonPath("$.processId").value(is(DEFAULT_PROCESS_ID))
+            .jsonPath("$.addedDate").value(is(sameInstant(DEFAULT_ADDED_DATE)))
+            .jsonPath("$.updatedDate").value(is(sameInstant(DEFAULT_UPDATED_DATE)));
     }
-
     @Test
     public void getNonExistingCategoryAction() {
         // Get the categoryAction
-        webTestClient
-            .get()
-            .uri("/api/category-actions/{id}", Long.MAX_VALUE)
+        webTestClient.get().uri("/api/category-actions/{id}", Long.MAX_VALUE)
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
-            .expectStatus()
-            .isNotFound();
+            .expectStatus().isNotFound();
     }
 
     @Test
@@ -510,14 +449,11 @@ public class CategoryActionResourceIT {
             .updatedDate(UPDATED_UPDATED_DATE);
         CategoryActionDto categoryActionDto = categoryActionMapper.toDto(updatedCategoryAction);
 
-        webTestClient
-            .put()
-            .uri("/api/category-actions")
+        webTestClient.put().uri("/api/category-actions")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryActionDto))
             .exchange()
-            .expectStatus()
-            .isOk();
+            .expectStatus().isOk();
 
         // Validate the CategoryAction in the database
         List<CategoryAction> categoryActionList = categoryActionRepository.findAll().collectList().block();
@@ -547,14 +483,11 @@ public class CategoryActionResourceIT {
         CategoryActionDto categoryActionDto = categoryActionMapper.toDto(categoryAction);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        webTestClient
-            .put()
-            .uri("/api/category-actions")
+        webTestClient.put().uri("/api/category-actions")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryActionDto))
             .exchange()
-            .expectStatus()
-            .isBadRequest();
+            .expectStatus().isBadRequest();
 
         // Validate the CategoryAction in the database
         List<CategoryAction> categoryActionList = categoryActionRepository.findAll().collectList().block();
@@ -569,13 +502,10 @@ public class CategoryActionResourceIT {
         int databaseSizeBeforeDelete = categoryActionRepository.findAll().collectList().block().size();
 
         // Delete the categoryAction
-        webTestClient
-            .delete()
-            .uri("/api/category-actions/{id}", categoryAction.getId())
+        webTestClient.delete().uri("/api/category-actions/{id}", categoryAction.getId())
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
-            .expectStatus()
-            .isNoContent();
+            .expectStatus().isNoContent();
 
         // Validate the database contains one less item
         List<CategoryAction> categoryActionList = categoryActionRepository.findAll().collectList().block();

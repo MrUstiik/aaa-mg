@@ -1,15 +1,11 @@
 package com.ftr.dgb.payments.action.catalog.web.rest;
 
 import com.ftr.dgb.payments.action.catalog.service.CategoryService;
-import com.ftr.dgb.payments.action.catalog.service.dto.CategoryDto;
 import com.ftr.dgb.payments.action.catalog.web.rest.errors.BadRequestAlertException;
+import com.ftr.dgb.payments.action.catalog.service.dto.CategoryDto;
+
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.reactive.ResponseUtil;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
-import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,12 +17,19 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import javax.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
 /**
  * REST controller for managing {@link com.ftr.dgb.payments.action.catalog.domain.Category}.
  */
 @RestController
 @RequestMapping("/api")
 public class CategoryResource {
+
     private final Logger log = LoggerFactory.getLogger(CategoryResource.class);
 
     private static final String ENTITY_NAME = "actionCatalogServiceCategory";
@@ -53,20 +56,16 @@ public class CategoryResource {
         if (categoryDto.getId() != null) {
             throw new BadRequestAlertException("A new category cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        return categoryService
-            .save(categoryDto)
-            .map(
-                result -> {
-                    try {
-                        return ResponseEntity
-                            .created(new URI("/api/categories/" + result.getId()))
-                            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId()))
-                            .body(result);
-                    } catch (URISyntaxException e) {
-                        throw new RuntimeException(e);
-                    }
+        return categoryService.save(categoryDto)
+            .map(result -> {
+                try {
+                    return ResponseEntity.created(new URI("/api/categories/" + result.getId()))
+                        .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId()))
+                        .body(result);
+                } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
                 }
-            );
+            });
     }
 
     /**
@@ -84,15 +83,11 @@ public class CategoryResource {
         if (categoryDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        return categoryService
-            .save(categoryDto)
+        return categoryService.save(categoryDto)
             .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
-            .map(
-                result ->
-                    ResponseEntity
-                        .ok()
-                        .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getId()))
-                        .body(result)
+            .map(result -> ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getId()))
+                .body(result)
             );
     }
 
@@ -140,11 +135,8 @@ public class CategoryResource {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public Mono<ResponseEntity<Void>> deleteCategory(@PathVariable String id) {
         log.debug("REST request to delete Category : {}", id);
-        return categoryService
-            .delete(id)
-            .map(
-                result ->
-                    ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id)).build()
-            );
+        return categoryService.delete(id)            .map(result -> ResponseEntity.noContent()
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id)).build()
+        );
     }
 }

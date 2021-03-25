@@ -1,23 +1,12 @@
 package com.ftr.dgb.payments.action.catalog.web.rest;
 
-import static com.ftr.dgb.payments.action.catalog.web.rest.TestUtil.sameInstant;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.is;
-
 import com.ftr.dgb.payments.action.catalog.ActionCatalogServiceApp;
 import com.ftr.dgb.payments.action.catalog.domain.Category;
 import com.ftr.dgb.payments.action.catalog.repository.CategoryRepository;
 import com.ftr.dgb.payments.action.catalog.service.CategoryService;
 import com.ftr.dgb.payments.action.catalog.service.dto.CategoryDto;
 import com.ftr.dgb.payments.action.catalog.service.mapper.CategoryMapper;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.UUID;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +16,19 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
+import java.time.ZoneId;
+import java.util.List;
+import java.util.UUID;
+
+import static com.ftr.dgb.payments.action.catalog.web.rest.TestUtil.sameInstant;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.is;
+
 /**
  * Integration tests for the {@link CategoryResource} REST controller.
  */
@@ -34,6 +36,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @AutoConfigureWebTestClient
 @WithMockUser
 public class CategoryResourceIT {
+
     private static final UUID DEFAULT_UUID = UUID.randomUUID();
     private static final UUID UPDATED_UUID = UUID.randomUUID();
 
@@ -46,8 +49,8 @@ public class CategoryResourceIT {
     private static final UUID DEFAULT_PARENT_CATEGORY_ID = UUID.randomUUID();
     private static final UUID UPDATED_PARENT_CATEGORY_ID = UUID.randomUUID();
 
-    private static final String DEFAULT_MCC = "AAAA";
-    private static final String UPDATED_MCC = "BBBB";
+    private static final String DEFAULT_MCC = "AAAAAAAAAA";
+    private static final String UPDATED_MCC = "BBBBBBBBBB";
 
     private static final String DEFAULT_ICON_URL = "AAAAAAAAAA";
     private static final String UPDATED_ICON_URL = "BBBBBBBBBB";
@@ -102,7 +105,6 @@ public class CategoryResourceIT {
             .updatedDate(DEFAULT_UPDATED_DATE);
         return category;
     }
-
     /**
      * Create an updated entity for this test.
      *
@@ -136,14 +138,11 @@ public class CategoryResourceIT {
         int databaseSizeBeforeCreate = categoryRepository.findAll().collectList().block().size();
         // Create the Category
         CategoryDto categoryDto = categoryMapper.toDto(category);
-        webTestClient
-            .post()
-            .uri("/api/categories")
+        webTestClient.post().uri("/api/categories")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryDto))
             .exchange()
-            .expectStatus()
-            .isCreated();
+            .expectStatus().isCreated();
 
         // Validate the Category in the database
         List<Category> categoryList = categoryRepository.findAll().collectList().block();
@@ -171,19 +170,17 @@ public class CategoryResourceIT {
         CategoryDto categoryDto = categoryMapper.toDto(category);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        webTestClient
-            .post()
-            .uri("/api/categories")
+        webTestClient.post().uri("/api/categories")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryDto))
             .exchange()
-            .expectStatus()
-            .isBadRequest();
+            .expectStatus().isBadRequest();
 
         // Validate the Category in the database
         List<Category> categoryList = categoryRepository.findAll().collectList().block();
         assertThat(categoryList).hasSize(databaseSizeBeforeCreate);
     }
+
 
     @Test
     public void checkUuidIsRequired() throws Exception {
@@ -194,14 +191,12 @@ public class CategoryResourceIT {
         // Create the Category, which fails.
         CategoryDto categoryDto = categoryMapper.toDto(category);
 
-        webTestClient
-            .post()
-            .uri("/api/categories")
+
+        webTestClient.post().uri("/api/categories")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryDto))
             .exchange()
-            .expectStatus()
-            .isBadRequest();
+            .expectStatus().isBadRequest();
 
         List<Category> categoryList = categoryRepository.findAll().collectList().block();
         assertThat(categoryList).hasSize(databaseSizeBeforeTest);
@@ -216,14 +211,12 @@ public class CategoryResourceIT {
         // Create the Category, which fails.
         CategoryDto categoryDto = categoryMapper.toDto(category);
 
-        webTestClient
-            .post()
-            .uri("/api/categories")
+
+        webTestClient.post().uri("/api/categories")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryDto))
             .exchange()
-            .expectStatus()
-            .isBadRequest();
+            .expectStatus().isBadRequest();
 
         List<Category> categoryList = categoryRepository.findAll().collectList().block();
         assertThat(categoryList).hasSize(databaseSizeBeforeTest);
@@ -238,14 +231,12 @@ public class CategoryResourceIT {
         // Create the Category, which fails.
         CategoryDto categoryDto = categoryMapper.toDto(category);
 
-        webTestClient
-            .post()
-            .uri("/api/categories")
+
+        webTestClient.post().uri("/api/categories")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryDto))
             .exchange()
-            .expectStatus()
-            .isBadRequest();
+            .expectStatus().isBadRequest();
 
         List<Category> categoryList = categoryRepository.findAll().collectList().block();
         assertThat(categoryList).hasSize(databaseSizeBeforeTest);
@@ -260,14 +251,12 @@ public class CategoryResourceIT {
         // Create the Category, which fails.
         CategoryDto categoryDto = categoryMapper.toDto(category);
 
-        webTestClient
-            .post()
-            .uri("/api/categories")
+
+        webTestClient.post().uri("/api/categories")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryDto))
             .exchange()
-            .expectStatus()
-            .isBadRequest();
+            .expectStatus().isBadRequest();
 
         List<Category> categoryList = categoryRepository.findAll().collectList().block();
         assertThat(categoryList).hasSize(databaseSizeBeforeTest);
@@ -282,14 +271,12 @@ public class CategoryResourceIT {
         // Create the Category, which fails.
         CategoryDto categoryDto = categoryMapper.toDto(category);
 
-        webTestClient
-            .post()
-            .uri("/api/categories")
+
+        webTestClient.post().uri("/api/categories")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryDto))
             .exchange()
-            .expectStatus()
-            .isBadRequest();
+            .expectStatus().isBadRequest();
 
         List<Category> categoryList = categoryRepository.findAll().collectList().block();
         assertThat(categoryList).hasSize(databaseSizeBeforeTest);
@@ -300,15 +287,11 @@ public class CategoryResourceIT {
         // Initialize the database
         categoryRepository.save(category).block();
 
-        List<Category> categoryList = webTestClient
-            .get()
-            .uri("/api/categories")
+        List<Category> categoryList = webTestClient.get().uri("/api/categories")
             .accept(MediaType.APPLICATION_STREAM_JSON)
             .exchange()
-            .expectStatus()
-            .isOk()
-            .expectHeader()
-            .contentTypeCompatibleWith(MediaType.APPLICATION_STREAM_JSON)
+            .expectStatus().isOk()
+            .expectHeader().contentTypeCompatibleWith(MediaType.APPLICATION_STREAM_JSON)
             .returnResult(CategoryDto.class)
             .getResponseBody()
             .map(categoryMapper::toEntity)
@@ -338,94 +321,58 @@ public class CategoryResourceIT {
         categoryRepository.save(category).block();
 
         // Get all the categoryList
-        webTestClient
-            .get()
-            .uri("/api/categories?sort=id,desc")
+        webTestClient.get().uri("/api/categories?sort=id,desc")
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
-            .expectStatus()
-            .isOk()
-            .expectHeader()
-            .contentType(MediaType.APPLICATION_JSON)
+            .expectStatus().isOk()
+            .expectHeader().contentType(MediaType.APPLICATION_JSON)
             .expectBody()
-            .jsonPath("$.[*].id")
-            .value(hasItem(category.getId()))
-            .jsonPath("$.[*].uuid")
-            .value(hasItem(DEFAULT_UUID.toString()))
-            .jsonPath("$.[*].name")
-            .value(hasItem(DEFAULT_NAME))
-            .jsonPath("$.[*].enabled")
-            .value(hasItem(DEFAULT_ENABLED.booleanValue()))
-            .jsonPath("$.[*].parentCategoryId")
-            .value(hasItem(DEFAULT_PARENT_CATEGORY_ID.toString()))
-            .jsonPath("$.[*].mcc")
-            .value(hasItem(DEFAULT_MCC))
-            .jsonPath("$.[*].iconUrl")
-            .value(hasItem(DEFAULT_ICON_URL))
-            .jsonPath("$.[*].defaultOrderId")
-            .value(hasItem(DEFAULT_DEFAULT_ORDER_ID))
-            .jsonPath("$.[*].regions")
-            .value(hasItem(DEFAULT_REGIONS))
-            .jsonPath("$.[*].tags")
-            .value(hasItem(DEFAULT_TAGS))
-            .jsonPath("$.[*].addedDate")
-            .value(hasItem(sameInstant(DEFAULT_ADDED_DATE)))
-            .jsonPath("$.[*].updatedDate")
-            .value(hasItem(sameInstant(DEFAULT_UPDATED_DATE)));
+            .jsonPath("$.[*].id").value(hasItem(category.getId()))
+            .jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID.toString()))
+            .jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME))
+            .jsonPath("$.[*].enabled").value(hasItem(DEFAULT_ENABLED.booleanValue()))
+            .jsonPath("$.[*].parentCategoryId").value(hasItem(DEFAULT_PARENT_CATEGORY_ID.toString()))
+            .jsonPath("$.[*].mcc").value(hasItem(DEFAULT_MCC))
+            .jsonPath("$.[*].iconUrl").value(hasItem(DEFAULT_ICON_URL))
+            .jsonPath("$.[*].defaultOrderId").value(hasItem(DEFAULT_DEFAULT_ORDER_ID))
+            .jsonPath("$.[*].regions").value(hasItem(DEFAULT_REGIONS))
+            .jsonPath("$.[*].tags").value(hasItem(DEFAULT_TAGS))
+            .jsonPath("$.[*].addedDate").value(hasItem(sameInstant(DEFAULT_ADDED_DATE)))
+            .jsonPath("$.[*].updatedDate").value(hasItem(sameInstant(DEFAULT_UPDATED_DATE)));
     }
-
+    
     @Test
     public void getCategory() {
         // Initialize the database
         categoryRepository.save(category).block();
 
         // Get the category
-        webTestClient
-            .get()
-            .uri("/api/categories/{id}", category.getId())
+        webTestClient.get().uri("/api/categories/{id}", category.getId())
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
-            .expectStatus()
-            .isOk()
-            .expectHeader()
-            .contentType(MediaType.APPLICATION_JSON)
+            .expectStatus().isOk()
+            .expectHeader().contentType(MediaType.APPLICATION_JSON)
             .expectBody()
-            .jsonPath("$.id")
-            .value(is(category.getId()))
-            .jsonPath("$.uuid")
-            .value(is(DEFAULT_UUID.toString()))
-            .jsonPath("$.name")
-            .value(is(DEFAULT_NAME))
-            .jsonPath("$.enabled")
-            .value(is(DEFAULT_ENABLED.booleanValue()))
-            .jsonPath("$.parentCategoryId")
-            .value(is(DEFAULT_PARENT_CATEGORY_ID.toString()))
-            .jsonPath("$.mcc")
-            .value(is(DEFAULT_MCC))
-            .jsonPath("$.iconUrl")
-            .value(is(DEFAULT_ICON_URL))
-            .jsonPath("$.defaultOrderId")
-            .value(is(DEFAULT_DEFAULT_ORDER_ID))
-            .jsonPath("$.regions")
-            .value(is(DEFAULT_REGIONS))
-            .jsonPath("$.tags")
-            .value(is(DEFAULT_TAGS))
-            .jsonPath("$.addedDate")
-            .value(is(sameInstant(DEFAULT_ADDED_DATE)))
-            .jsonPath("$.updatedDate")
-            .value(is(sameInstant(DEFAULT_UPDATED_DATE)));
+            .jsonPath("$.id").value(is(category.getId()))
+            .jsonPath("$.uuid").value(is(DEFAULT_UUID.toString()))
+            .jsonPath("$.name").value(is(DEFAULT_NAME))
+            .jsonPath("$.enabled").value(is(DEFAULT_ENABLED.booleanValue()))
+            .jsonPath("$.parentCategoryId").value(is(DEFAULT_PARENT_CATEGORY_ID.toString()))
+            .jsonPath("$.mcc").value(is(DEFAULT_MCC))
+            .jsonPath("$.iconUrl").value(is(DEFAULT_ICON_URL))
+            .jsonPath("$.defaultOrderId").value(is(DEFAULT_DEFAULT_ORDER_ID))
+            .jsonPath("$.regions").value(is(DEFAULT_REGIONS))
+            .jsonPath("$.tags").value(is(DEFAULT_TAGS))
+            .jsonPath("$.addedDate").value(is(sameInstant(DEFAULT_ADDED_DATE)))
+            .jsonPath("$.updatedDate").value(is(sameInstant(DEFAULT_UPDATED_DATE)));
     }
-
     @Test
     public void getNonExistingCategory() {
         // Get the category
-        webTestClient
-            .get()
-            .uri("/api/categories/{id}", Long.MAX_VALUE)
+        webTestClient.get().uri("/api/categories/{id}", Long.MAX_VALUE)
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
-            .expectStatus()
-            .isNotFound();
+            .expectStatus().isNotFound();
     }
 
     @Test
@@ -451,14 +398,11 @@ public class CategoryResourceIT {
             .updatedDate(UPDATED_UPDATED_DATE);
         CategoryDto categoryDto = categoryMapper.toDto(updatedCategory);
 
-        webTestClient
-            .put()
-            .uri("/api/categories")
+        webTestClient.put().uri("/api/categories")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryDto))
             .exchange()
-            .expectStatus()
-            .isOk();
+            .expectStatus().isOk();
 
         // Validate the Category in the database
         List<Category> categoryList = categoryRepository.findAll().collectList().block();
@@ -485,14 +429,11 @@ public class CategoryResourceIT {
         CategoryDto categoryDto = categoryMapper.toDto(category);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        webTestClient
-            .put()
-            .uri("/api/categories")
+        webTestClient.put().uri("/api/categories")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(categoryDto))
             .exchange()
-            .expectStatus()
-            .isBadRequest();
+            .expectStatus().isBadRequest();
 
         // Validate the Category in the database
         List<Category> categoryList = categoryRepository.findAll().collectList().block();
@@ -507,13 +448,10 @@ public class CategoryResourceIT {
         int databaseSizeBeforeDelete = categoryRepository.findAll().collectList().block().size();
 
         // Delete the category
-        webTestClient
-            .delete()
-            .uri("/api/categories/{id}", category.getId())
+        webTestClient.delete().uri("/api/categories/{id}", category.getId())
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
-            .expectStatus()
-            .isNoContent();
+            .expectStatus().isNoContent();
 
         // Validate the database contains one less item
         List<Category> categoryList = categoryRepository.findAll().collectList().block();
