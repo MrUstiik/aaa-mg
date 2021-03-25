@@ -1,16 +1,16 @@
 version: '2'
 services:
-  actioncatalogservice-mongodb:
+  actioncatalogservicesql-mongodb:
     image: mongo:4.2.7
     ports:
       - '27017:27017'
-    command: mongos --configdb csvr/actioncatalogservice-mongodb-config --bind_ip 0.0.0.0
-  actioncatalogservice-mongodb-node:
+    command: mongos --configdb csvr/actioncatalogservicesql-mongodb-config --bind_ip 0.0.0.0
+  actioncatalogservicesql-mongodb-node:
     build:
       context: .
       dockerfile: mongodb/MongoDB.Dockerfile
     command: mongod --shardsvr --replSet rs1
-  actioncatalogservice-mongodb-config:
+  actioncatalogservicesql-mongodb-config:
     image: mongo:4.2.7
-    container_name: actioncatalogservice-mongodb-config
+    container_name: actioncatalogservicesql-mongodb-config
     command: mongod --configsvr --dbpath /data/db --replSet csvr

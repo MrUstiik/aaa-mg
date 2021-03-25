@@ -2,7 +2,7 @@
   "generator-jhipster": {
     "applicationType": "microservice",
     "gitCompany": "",
-    "baseName": "ActionCatalogService",
+    "baseName": "ActionCatalogServiceSQL",
     "packageName": "com.ftr.dgb.payments.action.catalog",
     "packageFolder": "com/ftr/dgb/payments/action/catalog",
     "serverPort": "8089",
@@ -16,7 +16,7 @@
     "devDatabaseType": "mongodb",
     "prodDatabaseType": "mongodb",
     "searchEngine": false,
-    "enableSwaggerCodegen": false,
+    "enableSwaggerCodegen": true,
     "messageBroker": false,
     "buildTool": "gradle",
     "useSass": true,
@@ -43,5 +43,5 @@
   "git-provider": "GitHub",
   "git-company": "MrUstiik",
   "repository-name": "aaa-mg",
-  "entities": ["Category", "CategoryAction"]
+  "entities": []
 }

@@ -15,7 +15,7 @@
 
 spring:
   application:
-    name: ActionCatalogService
+    name: ActionCatalogServiceSQL
   jackson:
     serialization:
       write-durations-as-timestamps: false
@@ -23,7 +23,7 @@ spring:
     mongodb:
       host: localhost
       port: 0
-      database: ActionCatalogService
+      database: ActionCatalogServiceSQL
   mail:
     host: localhost
   main:
@@ -32,13 +32,13 @@ spring:
     basename: i18n/messages
   task:
     execution:
-      thread-name-prefix: action-catalog-service-task-
+      thread-name-prefix: action-catalog-service-sql-task-
       pool:
         core-size: 1
         max-size: 50
         queue-capacity: 10000
     scheduling:
-      thread-name-prefix: action-catalog-service-scheduling-
+      thread-name-prefix: action-catalog-service-sql-scheduling-
       pool:
         size: 1
   thymeleaf:
@@ -56,7 +56,7 @@ server:
 
 jhipster:
   clientApp:
-    name: 'actionCatalogServiceApp'
+    name: 'actionCatalogServiceSqlApp'
   logging:
     # To test json console appender
     use-json-format: false

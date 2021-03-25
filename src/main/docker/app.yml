@@ -1,15 +1,15 @@
 version: '2'
 services:
-  actioncatalogservice-app:
-    image: actioncatalogservice
+  actioncatalogservicesql-app:
+    image: actioncatalogservicesql
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod,swagger
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
-      - SPRING_DATA_MONGODB_URI=mongodb://actioncatalogservice-mongodb:27017/?waitQueueMultiple=1000
-      - SPRING_DATA_MONGODB_DATABASE=ActionCatalogService
+      - SPRING_DATA_MONGODB_URI=mongodb://actioncatalogservicesql-mongodb:27017/?waitQueueMultiple=1000
+      - SPRING_DATA_MONGODB_DATABASE=ActionCatalogServiceSQL
       - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
-  actioncatalogservice-mongodb:
+  actioncatalogservicesql-mongodb:
     extends:
       file: mongodb.yml
-      service: actioncatalogservice-mongodb
+      service: actioncatalogservicesql-mongodb

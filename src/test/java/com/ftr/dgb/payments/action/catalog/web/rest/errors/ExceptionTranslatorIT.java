@@ -1,6 +1,6 @@
 package com.ftr.dgb.payments.action.catalog.web.rest.errors;
 
-import com.ftr.dgb.payments.action.catalog.ActionCatalogServiceApp;
+import com.ftr.dgb.payments.action.catalog.ActionCatalogServiceSqlApp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -15,7 +15,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  */
 @WithMockUser
 @AutoConfigureWebTestClient
-@SpringBootTest(classes = ActionCatalogServiceApp.class)
+@SpringBootTest(classes = ActionCatalogServiceSqlApp.class)
 public class ExceptionTranslatorIT {
     @Autowired
     private WebTestClient webTestClient;
